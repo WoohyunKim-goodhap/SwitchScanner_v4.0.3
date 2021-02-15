@@ -651,6 +651,7 @@
                                         </userDefinedRuntimeAttributes>
                                         <connections>
                                             <action selector="TFediting:" destination="ayx-Qa-uUq" eventType="editingDidEndOnExit" id="Ujk-Sz-T81"/>
+                                            <outlet property="delegate" destination="ayx-Qa-uUq" id="ntQ-Jb-6Ti"/>
                                         </connections>
                                     </textField>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Selected Game" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="k3Y-ET-b7T">

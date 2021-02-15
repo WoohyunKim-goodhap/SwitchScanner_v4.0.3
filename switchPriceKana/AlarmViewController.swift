@@ -10,7 +10,7 @@ import UIKit
 import SCLAlertView
 import Firebase
 
-class AlarmViewController: UIViewController {
+class AlarmViewController: UIViewController, UITextFieldDelegate {
     
     @IBOutlet var searchedGame: UILabel!
     @IBOutlet var currentCurrencyAlarm: UILabel!
@@ -51,6 +51,14 @@ class AlarmViewController: UIViewController {
         // Do any additional setup after loading the view.
     }
     
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        let allowedCharacters = "1234567890,."
+        let allowedCharacterSet = CharacterSet(charactersIn: allowedCharacters)
+        let typedCharacterSet = CharacterSet(charactersIn: string)
+        
+        return allowedCharacterSet.isSuperset(of: typedCharacterSet)
+    }
+    
     @IBAction func TFediting(_ sender: Any) {
         alarmRequestButton.isHidden = false
     }
@@ -59,7 +67,7 @@ class AlarmViewController: UIViewController {
         
         if targetPriceTF.text?.isEmpty == false {
             guard let targetPrice = targetPriceTF.text else {return}
-            db.child("Alarm Request").child("token-\(userToken)").setValue(["game": "\(gameTitelForChart)", "currency": "\(currencyForAlarm)", "price": "\(targetPrice)"])
+            db.child("Alarm Request").childByAutoId().setValue(["currency": "\(currencyForAlarm)", "game": "\(gameTitelForChart)", "price": "\(targetPrice)", "token": "\(userToken)"])
           
             SCLAlertView().showSuccess("\(LocalizaionClass.AVCAlert.successHead)", subTitle: "\(LocalizaionClass.AVCAlert.successSub)")
         }else{
