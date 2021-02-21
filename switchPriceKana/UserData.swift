@@ -44,4 +44,4 @@ var currencyForAlarm : String = ""
 var alarmStatusIson : Bool = false
 
 var userToken : String = ""
-
+var userFCMToken : String = ""

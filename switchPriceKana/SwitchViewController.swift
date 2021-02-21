@@ -116,14 +116,14 @@ class SwitchViewController: UIViewController, UITableViewDataSource, UITableView
         
         //bannerAD
  
-        var bannerView: GADBannerView!
-        
-        bannerView = GADBannerView(adSize: kGADAdSizeSmartBannerPortrait)
-        bannerView.adUnitID = "ca-app-pub-8456076322553323/1569435686"
-        bannerView.rootViewController = self
-        bannerView.load(GADRequest())
-        bannerView.delegate = self
-        addBannerViewToView(bannerView)
+//        var bannerView: GADBannerView!
+//        
+//        bannerView = GADBannerView(adSize: kGADAdSizeSmartBannerPortrait)
+//        bannerView.adUnitID = "ca-app-pub-3940256099942544/2934735716"
+//        bannerView.rootViewController = self
+//        bannerView.load(GADRequest())
+//        bannerView.delegate = self
+//        addBannerViewToView(bannerView)
 
         
         //addbannerviewto...없음
@@ -436,6 +436,7 @@ extension String {
         }
     }
 }
+
 
 
 

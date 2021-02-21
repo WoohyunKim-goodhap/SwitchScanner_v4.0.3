@@ -11,12 +11,12 @@ import CoreData
 import Firebase
 import GoogleMobileAds
 import UserNotifications
+import FirebaseMessaging
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterDelegate {
     
     var window: UIWindow?
-
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
@@ -41,6 +41,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
                 print("User Notification permission denied: \(error?.localizedDescription ?? "error")")
             }
         }
+        UNUserNotificationCenter.current().delegate = self
+        let authOptions: UNAuthorizationOptions = [[.alert, .badge, .sound]]
+        UNUserNotificationCenter.current().requestAuthorization(options: authOptions, completionHandler: { _,_ in})
+        application.registerForRemoteNotifications()
+        
+        Messaging.messaging().delegate = self
+
     }
     
     //  MARK: UNUserNotificationCenter Delegate methods
@@ -77,7 +84,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         }
         return token //  this token will be passed to your backend that can be written in php, js, .net etc.
     }
-    
     
  
     //notification
@@ -171,6 +177,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
             }
         }
     }
+}
 
+extension AppDelegate: MessagingDelegate{
+    func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String) {
+        userFCMToken = fcmToken
+    }
 }
 

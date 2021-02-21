@@ -46,7 +46,6 @@ class AlarmViewController: UIViewController, UITextFieldDelegate {
         currentPriceLabel.text = priceForAlarm
         targetCurrencyAlarm.text = currencyForAlarm
         
-        alarmRequestButton.isHidden = true
         
         // Do any additional setup after loading the view.
     }
@@ -59,15 +58,17 @@ class AlarmViewController: UIViewController, UITextFieldDelegate {
         return allowedCharacterSet.isSuperset(of: typedCharacterSet)
     }
     
-    @IBAction func TFediting(_ sender: Any) {
-        alarmRequestButton.isHidden = false
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
     }
+
     
     @IBAction func alarmRequestClicked(_ sender: Any) {
         
         if targetPriceTF.text?.isEmpty == false {
             guard let targetPrice = targetPriceTF.text else {return}
-            db.child("Alarm Request").childByAutoId().setValue(["currency": "\(currencyForAlarm)", "game": "\(gameTitelForChart)", "price": "\(targetPrice)", "token": "\(userToken)"])
+            db.child("Alarm Request").childByAutoId().setValue(["currency": "\(currencyForAlarm)", "game": "\(gameTitelForChart)", "price": "\(targetPrice)", "APNtoken": "\(userToken)", "FCMtoken": "\(userFCMToken)"])
           
             SCLAlertView().showSuccess("\(LocalizaionClass.AVCAlert.successHead)", subTitle: "\(LocalizaionClass.AVCAlert.successSub)")
         }else{
